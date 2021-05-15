@@ -1,95 +1,104 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:ui2/values/const.dart';
 
 final carrot = {
   "name": "Zanahoria",
-  "image": Transform.rotate(
-    angle: -pi / 12,
-    child: Image(
-      width: 130,
-      height: 130,
-      image: Svg('assets/img/carrot.svg'),
-    ),
+  "image": Image(
+    image: Svg('assets/img/carrot.svg'),
+    fit: BoxFit.cover,
   ),
   "color": Colors.indigo.shade300,
+  "description": carrotDescription,
+  "isActive": false,
 };
 
 final avocado = {
   "name": "Aguacate",
-  "image": Transform.rotate(
-    angle: pi / 12,
-    child: Image(
-      width: 140,
-      height: 140,
-      image: Svg('assets/img/avocado.svg'),
-    ),
+  "image": Image(
+    image: Svg('assets/img/avocado.svg'),
+    fit: BoxFit.cover,
   ),
   "color": Colors.indigo.shade300,
+  "description": avocadoDescription,
+  "isActive": false,
 };
 
 final chili = {
-  "name": "Chile",
-  "image": Transform.rotate(
-    angle: -pi / 8,
-    child: Image(
-      width: 160,
-      height: 160,
-      image: Svg('assets/img/chili.svg'),
-    ),
+  "name": "Chile Serrano",
+  "image": Image(
+    image: Svg('assets/img/chili.svg'),
+    fit: BoxFit.cover,
   ),
   "color": Colors.indigo.shade300,
+  "description": serranoChiliDescription,
+  "isActive": true,
+};
+
+final sunFlower = {
+  "name": "Girasol",
+  "image": Image(
+    image: Svg('assets/img/girasol.svg'),
+    fit: BoxFit.cover,
+  ),
+  "color": Colors.indigo.shade300,
+  "description": sunFlowerDescription,
+  "isActive": true,
+};
+
+final strawberry = {
+  "name": "Fresa",
+  "image": Image(
+    image: Svg('assets/img/fresa.svg'),
+    fit: BoxFit.cover,
+  ),
+  "color": Colors.indigo.shade300,
+  "description": strawberryDescription,
+  "isActive": false,
 };
 
 final egg = {
   "name": "Huevo",
-  "image": Transform.rotate(
-    angle: -pi / 12,
-    child: Image(
-      width: 130,
-      height: 130,
-      image: Svg('assets/img/egg.svg'),
-    ),
+  "image": Image(
+    image: Svg('assets/img/egg.svg'),
+    fit: BoxFit.cover,
   ),
   "color": Colors.indigo.shade300,
+  "description": eggDescription,
+  "isActive": false,
 };
 
 final lettuce = {
   "name": "Lechuga",
-  "image": Transform.rotate(
-    angle: 0,
-    child: Image(
-      width: 130,
-      height: 140,
-      image: Svg('assets/img/lettuce.svg'),
-    ),
+  "image": Image(
+    image: Svg('assets/img/lettuce.svg'),
+    fit: BoxFit.cover,
   ),
   "color": Colors.indigo.shade300,
+  "description": lettuceDescription,
+  "isActive": false,
 };
 
 final tomatoes = {
   "name": "Tomates",
-  "image": Transform.rotate(
-    angle: 0,
-    child: Image(
-      width: 130,
-      height: 150,
-      image: Svg('assets/img/tomato.svg'),
-    ),
+  "image": Image(
+    image: Svg('assets/img/tomato.svg'),
+    fit: BoxFit.cover,
   ),
   "color": Colors.indigo.shade300,
+  "description": tomatoesDescription,
+  "isActive": false,
 };
 
 final garlic = {
   "name": "Ajo",
-  "image": Transform.rotate(
-    angle: 0,
-    child: Image(
-      width: 120,
-      height: 150,
-      image: Svg('assets/img/garlic.svg'),
+  "image": Image(
+    fit: BoxFit.cover,
+    image: Svg(
+      'assets/img/garlic.svg',
     ),
   ),
   "color": Colors.indigo.shade300,
+  "description": garlicDescription,
+  "isActive": false,
 };

@@ -1,76 +1,103 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
 class ProductWeekCard extends StatelessWidget {
   final String productName;
-  final Transform image;
+  final String productDescription;
+  final Widget image;
   final Color color;
+  final bool isActive;
+  final double _borderRadius = 18;
 
-  const ProductWeekCard(
-      {Key key,
-      @required this.productName,
-      @required this.image,
-      @required this.color})
-      : super(key: key);
+  const ProductWeekCard({
+    Key key,
+    @required this.productName,
+    @required this.image,
+    @required this.color,
+    @required this.productDescription,
+    @required this.isActive,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Container(
-        width: 340,
-        height: 100,
-        margin: EdgeInsets.only(top: 70, bottom: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          color: color,
-        ),
-        child: Stack(
-          overflow: Overflow.visible,
-          children: [
-            Positioned(
-              top: -55,
-              left: 30,
-              child: image,
+    return Container(
+      margin: EdgeInsets.only(bottom: 30),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(_borderRadius),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 0.3,
+            blurRadius: 8,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {},
+          splashFactory: InkRipple.splashFactory,
+          borderRadius: BorderRadius.circular(_borderRadius),
+          child: Container(
+            width: 360,
+            padding: EdgeInsets.symmetric(
+              vertical: 22,
+              horizontal: 32,
             ),
-            Positioned(
-              right: 22,
-              top: 24,
-              child: Text(
-                'Seleccionar producto  ',
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            productName,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            productDescription,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                              color: Colors.grey.shade600,
+                              fontSize: 16,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                          Text(
+                            isActive ? 'Ver más' : 'Proximamente',
+                            style: TextStyle(
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 25),
+                    Container(
+                      width: 90,
+                      height: 90,
+                      child: image,
+                    ),
+                  ],
                 ),
-              ),
+              ],
             ),
-            Positioned(
-              right: 27,
-              top: 50,
-              width: 135,
-              child: Container(
-                // color: Colors.red,
-                child: Text(
-                  productName,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              left: 10,
-              top: 10,
-              child: Icon(
-                Icons.circle,
-                color: Colors.white,
-                size: 6,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
