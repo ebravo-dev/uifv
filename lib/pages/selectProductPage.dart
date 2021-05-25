@@ -50,127 +50,146 @@ class _SelectProductPageState extends State<SelectProductPage> {
         brightness: Brightness.light,
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.only(bottom: 80),
         physics: BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            SizedBox(
-              width: widthScreen,
-              height: 15,
-            ),
-            Text(
-              'Hola Ricardo',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 26,
-                color: Colors.indigo.shade400,
-                fontWeight: FontWeight.w500,
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              SizedBox(
+                width: widthScreen,
+                height: 15,
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              'Cual producto escogerás?',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              width: 340,
-              padding: EdgeInsets.symmetric(
-                vertical: 6,
-                horizontal: 20,
-              ),
-              margin: EdgeInsets.only(bottom: 25),
-              decoration: BoxDecoration(
-                color: Color(0xfff7f8f9),
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: TextField(
+              Text(
+                'Hola Ricardo',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.grey.shade800,
-                ),
-                decoration: InputDecoration(
-                  hintText: 'Buscar producto...',
-                  hintStyle: TextStyle(color: Color(0xff9ca5ae)),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
+                  fontSize: 26,
+                  color: Colors.indigo.shade400,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-            ),
-            ProductWeekCard(
-              productName: WEEKLYPRODUCTS.sunFlower['name'],
-              image: WEEKLYPRODUCTS.sunFlower['image'],
-              color: WEEKLYPRODUCTS.sunFlower['color'],
-              productDescription: WEEKLYPRODUCTS.sunFlower['description'],
-              isActive: WEEKLYPRODUCTS.sunFlower['isActive'],
-            ),
-            ProductWeekCard(
-              productName: WEEKLYPRODUCTS.chili['name'],
-              image: WEEKLYPRODUCTS.chili['image'],
-              color: WEEKLYPRODUCTS.chili['color'],
-              productDescription: WEEKLYPRODUCTS.chili['description'],
-              isActive: WEEKLYPRODUCTS.chili['isActive'],
-            ),
-            ProductWeekCard(
-              productName: WEEKLYPRODUCTS.strawberry['name'],
-              image: WEEKLYPRODUCTS.strawberry['image'],
-              color: WEEKLYPRODUCTS.strawberry['color'],
-              productDescription: WEEKLYPRODUCTS.strawberry['description'],
-              isActive: WEEKLYPRODUCTS.strawberry['isActive'],
-            ),
-            ProductWeekCard(
-              productName: WEEKLYPRODUCTS.garlic['name'],
-              image: WEEKLYPRODUCTS.garlic['image'],
-              color: WEEKLYPRODUCTS.garlic['color'],
-              productDescription: WEEKLYPRODUCTS.garlic['description'],
-              isActive: WEEKLYPRODUCTS.garlic['isActive'],
-            ),
-            ProductWeekCard(
-              productName: WEEKLYPRODUCTS.lettuce['name'],
-              image: WEEKLYPRODUCTS.lettuce['image'],
-              color: WEEKLYPRODUCTS.lettuce['color'],
-              productDescription: WEEKLYPRODUCTS.lettuce['description'],
-              isActive: WEEKLYPRODUCTS.lettuce['isActive'],
-            ),
-            ProductWeekCard(
-              productName: WEEKLYPRODUCTS.egg['name'],
-              image: WEEKLYPRODUCTS.egg['image'],
-              color: WEEKLYPRODUCTS.egg['color'],
-              productDescription: WEEKLYPRODUCTS.egg['description'],
-              isActive: WEEKLYPRODUCTS.egg['isActive'],
-            ),
-            ProductWeekCard(
-              productName: WEEKLYPRODUCTS.carrot['name'],
-              image: WEEKLYPRODUCTS.carrot['image'],
-              color: WEEKLYPRODUCTS.carrot['color'],
-              productDescription: WEEKLYPRODUCTS.carrot['description'],
-              isActive: WEEKLYPRODUCTS.carrot['isActive'],
-            ),
-            ProductWeekCard(
-              productName: WEEKLYPRODUCTS.tomatoes['name'],
-              image: WEEKLYPRODUCTS.tomatoes['image'],
-              color: WEEKLYPRODUCTS.tomatoes['color'],
-              productDescription: WEEKLYPRODUCTS.tomatoes['description'],
-              isActive: WEEKLYPRODUCTS.tomatoes['isActive'],
-            ),
-            ProductWeekCard(
-              productName: WEEKLYPRODUCTS.avocado['name'],
-              image: WEEKLYPRODUCTS.avocado['image'],
-              color: WEEKLYPRODUCTS.avocado['color'],
-              productDescription: WEEKLYPRODUCTS.avocado['description'],
-              isActive: WEEKLYPRODUCTS.avocado['isActive'],
-            ),
-          ],
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Cual producto escogerás?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                width: 340,
+                padding: EdgeInsets.symmetric(
+                  vertical: 6,
+                  horizontal: 20,
+                ),
+                margin: EdgeInsets.only(bottom: 25),
+                decoration: BoxDecoration(
+                  color: Color(0xfff7f8f9),
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey.shade800,
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Buscar producto...',
+                    hintStyle: TextStyle(color: Color(0xff9ca5ae)),
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 30,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      'Seleccionar Producto',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              ProductWeekCard(
+                productName: WEEKLYPRODUCTS.sunFlower['name'],
+                image: WEEKLYPRODUCTS.sunFlower['image'],
+                productDescription: WEEKLYPRODUCTS.sunFlower['description'],
+                isActive: WEEKLYPRODUCTS.sunFlower['isActive'],
+              ),
+              ProductWeekCard(
+                productName: WEEKLYPRODUCTS.chili['name'],
+                image: WEEKLYPRODUCTS.chili['image'],
+                productDescription: WEEKLYPRODUCTS.chili['description'],
+                isActive: WEEKLYPRODUCTS.chili['isActive'],
+              ),
+              ProductWeekCard(
+                productName: WEEKLYPRODUCTS.strawberry['name'],
+                image: WEEKLYPRODUCTS.strawberry['image'],
+                productDescription: WEEKLYPRODUCTS.strawberry['description'],
+                isActive: WEEKLYPRODUCTS.strawberry['isActive'],
+              ),
+              ProductWeekCard(
+                productName: WEEKLYPRODUCTS.garlic['name'],
+                image: WEEKLYPRODUCTS.garlic['image'],
+                productDescription: WEEKLYPRODUCTS.garlic['description'],
+                isActive: WEEKLYPRODUCTS.garlic['isActive'],
+              ),
+              ProductWeekCard(
+                productName: WEEKLYPRODUCTS.lettuce['name'],
+                image: WEEKLYPRODUCTS.lettuce['image'],
+                productDescription: WEEKLYPRODUCTS.lettuce['description'],
+                isActive: WEEKLYPRODUCTS.lettuce['isActive'],
+              ),
+              ProductWeekCard(
+                productName: WEEKLYPRODUCTS.egg['name'],
+                image: WEEKLYPRODUCTS.egg['image'],
+                productDescription: WEEKLYPRODUCTS.egg['description'],
+                isActive: WEEKLYPRODUCTS.egg['isActive'],
+              ),
+              ProductWeekCard(
+                productName: WEEKLYPRODUCTS.carrot['name'],
+                image: WEEKLYPRODUCTS.carrot['image'],
+                productDescription: WEEKLYPRODUCTS.carrot['description'],
+                isActive: WEEKLYPRODUCTS.carrot['isActive'],
+              ),
+              ProductWeekCard(
+                productName: WEEKLYPRODUCTS.tomatoes['name'],
+                image: WEEKLYPRODUCTS.tomatoes['image'],
+                productDescription: WEEKLYPRODUCTS.tomatoes['description'],
+                isActive: WEEKLYPRODUCTS.tomatoes['isActive'],
+              ),
+              ProductWeekCard(
+                productName: WEEKLYPRODUCTS.avocado['name'],
+                image: WEEKLYPRODUCTS.avocado['image'],
+                productDescription: WEEKLYPRODUCTS.avocado['description'],
+                isActive: WEEKLYPRODUCTS.avocado['isActive'],
+              ),
+            ],
+          ),
+          // color: Colors.pink,
         ),
       ),
     );

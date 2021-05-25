@@ -8,7 +8,6 @@ final carrot = {
     image: Svg('assets/img/carrot.svg'),
     fit: BoxFit.cover,
   ),
-  "color": Colors.indigo.shade300,
   "description": carrotDescription,
   "isActive": false,
 };
@@ -19,7 +18,6 @@ final avocado = {
     image: Svg('assets/img/avocado.svg'),
     fit: BoxFit.cover,
   ),
-  "color": Colors.indigo.shade300,
   "description": avocadoDescription,
   "isActive": false,
 };
@@ -30,7 +28,6 @@ final chili = {
     image: Svg('assets/img/chili.svg'),
     fit: BoxFit.cover,
   ),
-  "color": Colors.indigo.shade300,
   "description": serranoChiliDescription,
   "isActive": true,
 };
@@ -41,7 +38,6 @@ final sunFlower = {
     image: Svg('assets/img/girasol.svg'),
     fit: BoxFit.cover,
   ),
-  "color": Colors.indigo.shade300,
   "description": sunFlowerDescription,
   "isActive": true,
 };
@@ -52,7 +48,6 @@ final strawberry = {
     image: Svg('assets/img/fresa.svg'),
     fit: BoxFit.cover,
   ),
-  "color": Colors.indigo.shade300,
   "description": strawberryDescription,
   "isActive": false,
 };
@@ -63,7 +58,6 @@ final egg = {
     image: Svg('assets/img/egg.svg'),
     fit: BoxFit.cover,
   ),
-  "color": Colors.indigo.shade300,
   "description": eggDescription,
   "isActive": false,
 };
@@ -74,7 +68,6 @@ final lettuce = {
     image: Svg('assets/img/lettuce.svg'),
     fit: BoxFit.cover,
   ),
-  "color": Colors.indigo.shade300,
   "description": lettuceDescription,
   "isActive": false,
 };
@@ -85,7 +78,6 @@ final tomatoes = {
     image: Svg('assets/img/tomato.svg'),
     fit: BoxFit.cover,
   ),
-  "color": Colors.indigo.shade300,
   "description": tomatoesDescription,
   "isActive": false,
 };
@@ -98,7 +90,6 @@ final garlic = {
       'assets/img/garlic.svg',
     ),
   ),
-  "color": Colors.indigo.shade300,
   "description": garlicDescription,
   "isActive": false,
 };

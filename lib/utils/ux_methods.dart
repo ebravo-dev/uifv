@@ -6,6 +6,10 @@ void restoreStatusBarColor() async {
   changeStatusBarColorWhiteOp80();
 }
 
+Future waitInkWellAnimation() async {
+  await Future.delayed(Duration(milliseconds: 300));
+}
+
 void changeStatusBarColorWhiteOp80() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Color.fromRGBO(255, 255, 255, 0.8),
