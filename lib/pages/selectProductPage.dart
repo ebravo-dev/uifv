@@ -2,9 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ui2/values/colors.dart';
 import 'package:ui2/values/productsOfWeek.dart' as WEEKLYPRODUCTS;
 import 'package:ui2/widgets/navigation_button.dart';
 import 'package:ui2/widgets/product_week_card.dart';
+import 'package:ui2/widgets/products_divider.dart';
 
 class SelectProductPage extends StatefulWidget {
   SelectProductPage({Key key, this.title}) : super(key: key);
@@ -41,7 +43,7 @@ class _SelectProductPageState extends State<SelectProductPage> {
                 ),
                 NavigationButton(
                   action: () {},
-                  barckgroundColor: Colors.indigo.shade300,
+                  barckgroundColor: loginSplashColor,
                 ),
               ],
             ),
@@ -66,7 +68,7 @@ class _SelectProductPageState extends State<SelectProductPage> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 26,
-                  color: Colors.indigo.shade400,
+                  color: loginPrimaryColor,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -91,7 +93,7 @@ class _SelectProductPageState extends State<SelectProductPage> {
                   vertical: 6,
                   horizontal: 20,
                 ),
-                margin: EdgeInsets.only(bottom: 25),
+                margin: EdgeInsets.only(bottom: 15),
                 decoration: BoxDecoration(
                   color: Color(0xfff7f8f9),
                   borderRadius: BorderRadius.circular(18),
@@ -109,29 +111,8 @@ class _SelectProductPageState extends State<SelectProductPage> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 30,
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      'Seleccionar Producto',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
+              ProductsDivider(
+                label: 'Seleccionar Producto',
               ),
               ProductWeekCard(
                 productName: WEEKLYPRODUCTS.sunFlower['name'],
@@ -152,6 +133,15 @@ class _SelectProductPageState extends State<SelectProductPage> {
                 isActive: WEEKLYPRODUCTS.strawberry['isActive'],
               ),
               ProductWeekCard(
+                productName: WEEKLYPRODUCTS.egg['name'],
+                image: WEEKLYPRODUCTS.egg['image'],
+                productDescription: WEEKLYPRODUCTS.egg['description'],
+                isActive: WEEKLYPRODUCTS.egg['isActive'],
+              ),
+              ProductsDivider(
+                label: 'Proximamente',
+              ),
+              ProductWeekCard(
                 productName: WEEKLYPRODUCTS.garlic['name'],
                 image: WEEKLYPRODUCTS.garlic['image'],
                 productDescription: WEEKLYPRODUCTS.garlic['description'],
@@ -162,12 +152,6 @@ class _SelectProductPageState extends State<SelectProductPage> {
                 image: WEEKLYPRODUCTS.lettuce['image'],
                 productDescription: WEEKLYPRODUCTS.lettuce['description'],
                 isActive: WEEKLYPRODUCTS.lettuce['isActive'],
-              ),
-              ProductWeekCard(
-                productName: WEEKLYPRODUCTS.egg['name'],
-                image: WEEKLYPRODUCTS.egg['image'],
-                productDescription: WEEKLYPRODUCTS.egg['description'],
-                isActive: WEEKLYPRODUCTS.egg['isActive'],
               ),
               ProductWeekCard(
                 productName: WEEKLYPRODUCTS.carrot['name'],

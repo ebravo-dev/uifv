@@ -12,10 +12,11 @@ Future waitInkWellAnimation() async {
 
 void changeStatusBarColorWhiteOp80() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Color.fromRGBO(255, 255, 255, 0.8),
-    statusBarIconBrightness: Brightness.dark,
+    //statusBarColor: Color.fromRGBO(255, 255, 255, 0.8),
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.light,
     systemNavigationBarColor: Colors.white,
-    systemNavigationBarIconBrightness: Brightness.dark,
+    systemNavigationBarIconBrightness: Brightness.light,
   ));
 }
 

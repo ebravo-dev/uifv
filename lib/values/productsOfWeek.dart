@@ -49,7 +49,7 @@ final strawberry = {
     fit: BoxFit.cover,
   ),
   "description": strawberryDescription,
-  "isActive": false,
+  "isActive": true,
 };
 
 final egg = {
@@ -59,7 +59,7 @@ final egg = {
     fit: BoxFit.cover,
   ),
   "description": eggDescription,
-  "isActive": false,
+  "isActive": true,
 };
 
 final lettuce = {

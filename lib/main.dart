@@ -14,6 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FV',
+      themeMode: ThemeMode.light,
+      theme: ThemeData.light(),
       home: SelectProductPage(),
     );
   }

@@ -16,6 +16,8 @@ class NavigationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
+        width: 50,
+        height: 50,
         decoration: BoxDecoration(
           color: barckgroundColor,
           borderRadius: BorderRadius.circular(18),
