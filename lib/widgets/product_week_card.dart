@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui2/pages/viewProductPage.dart';
+import 'package:ui2/utils/fix.dart';
 import 'package:ui2/utils/ux_methods.dart';
 import 'package:ui2/values/colors.dart';
 
@@ -8,7 +9,7 @@ class ProductWeekCard extends StatelessWidget {
   final String productDescription;
   final Widget image;
   final bool isActive;
-  final double _borderRadius = 18;
+  final MultipleTabsFix multipleTabsFix;
 
   const ProductWeekCard({
     Key key,
@@ -16,10 +17,12 @@ class ProductWeekCard extends StatelessWidget {
     @required this.image,
     @required this.productDescription,
     @required this.isActive,
+    @required this.multipleTabsFix,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    bool pushFixFlag = false;
     return Container(
       foregroundDecoration: isActive
           ? null
@@ -31,19 +34,25 @@ class ProductWeekCard extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () async {
-            await waitInkWellAnimation();
-            Navigator.push(context, MaterialPageRoute(builder: (c) {
-              return ViewProductPage(
-                productName: productName,
-                imageHero: image,
-              );
-            }));
+            if (!pushFixFlag && multipleTabsFix.isAviableTabAction) {
+              pushFixFlag = true;
+              multipleTabsFix.isAviableTabAction = false;
+              await waitInkWellAnimation();
+              Navigator.push(context, MaterialPageRoute(builder: (c) {
+                return SplashProductPage(
+                  productName: productName,
+                  imageHero: image,
+                  productDescription: productDescription,
+                );
+              })).whenComplete(() {
+                pushFixFlag = false;
+                multipleTabsFix.isAviableTabAction = true;
+              });
+            }
           },
           splashFactory: InkRipple.splashFactory,
           child: Container(
-            // width: 360,
             padding: EdgeInsets.symmetric(
-              // vertical: 20,
               horizontal: 30,
             ),
             child: Column(
@@ -63,7 +72,6 @@ class ProductWeekCard extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
-                              //fontFamily: 'Nunito',
                               color: loginPrimaryColor,
                             ),
                           ),
@@ -74,24 +82,12 @@ class ProductWeekCard extends StatelessWidget {
                             productDescription,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            //textAlign: TextAlign.justify,
                             style: TextStyle(
                               color: Colors.grey.shade800,
                               fontSize: 16,
                               fontFamily: 'Nunito',
                             ),
                           ),
-                          // SizedBox(
-                          //   height: 15,
-                          // ),
-                          // Text(
-                          //   isActive ? 'Ver más' : 'Proximamente',
-                          //   style: TextStyle(
-                          //     color: loginSplashColor,
-                          //     fontSize: 16,
-                          //     fontFamily: 'Nunito',
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
