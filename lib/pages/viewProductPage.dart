@@ -71,17 +71,17 @@ class ViewProductPageState extends State<ViewProductPage> {
         ),
       ),
     );
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     Future.delayed(Duration(milliseconds: 500)).whenComplete(() {
       if (mounted)
         setState(() {
           initWaitFlag = false;
         });
     });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => !initWaitFlag,
       child: Scaffold(

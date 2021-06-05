@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData.light(),
       home: ActivitiesPage(
-        eventsFlag: false,
+        eventsFlag: true,
       ),
     );
   }
