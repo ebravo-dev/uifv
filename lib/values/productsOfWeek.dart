@@ -29,7 +29,7 @@ final chili = {
     fit: BoxFit.cover,
   ),
   "description": serranoChiliDescription,
-  "isActive": true,
+  "isActive": false,
 };
 
 final sunFlower = {
@@ -49,7 +49,7 @@ final strawberry = {
     fit: BoxFit.cover,
   ),
   "description": strawberryDescription,
-  "isActive": true,
+  "isActive": false,
 };
 
 final egg = {
@@ -59,7 +59,7 @@ final egg = {
     fit: BoxFit.cover,
   ),
   "description": eggDescription,
-  "isActive": true,
+  "isActive": false,
 };
 
 final lettuce = {

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -119,66 +120,75 @@ class _SelectProductPageState extends State<SelectProductPage> {
               ProductWeekCard(
                 productName: WEEKLYPRODUCTS.sunFlower['name'],
                 image: WEEKLYPRODUCTS.sunFlower['image'],
-                productDescription: WEEKLYPRODUCTS.sunFlower['description'],
+                productDescription:
+                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
                 isActive: WEEKLYPRODUCTS.sunFlower['isActive'],
-                multipleTabsFix: tabsFix,
-              ),
-              ProductWeekCard(
-                productName: WEEKLYPRODUCTS.chili['name'],
-                image: WEEKLYPRODUCTS.chili['image'],
-                productDescription: WEEKLYPRODUCTS.chili['description'],
-                isActive: WEEKLYPRODUCTS.chili['isActive'],
-                multipleTabsFix: tabsFix,
-              ),
-              ProductWeekCard(
-                productName: WEEKLYPRODUCTS.strawberry['name'],
-                image: WEEKLYPRODUCTS.strawberry['image'],
-                productDescription: WEEKLYPRODUCTS.strawberry['description'],
-                isActive: WEEKLYPRODUCTS.strawberry['isActive'],
-                multipleTabsFix: tabsFix,
-              ),
-              ProductWeekCard(
-                productName: WEEKLYPRODUCTS.egg['name'],
-                image: WEEKLYPRODUCTS.egg['image'],
-                productDescription: WEEKLYPRODUCTS.egg['description'],
-                isActive: WEEKLYPRODUCTS.egg['isActive'],
                 multipleTabsFix: tabsFix,
               ),
               ProductsDivider(
                 label: 'Proximamente',
               ),
               ProductWeekCard(
+                productName: WEEKLYPRODUCTS.chili['name'],
+                image: WEEKLYPRODUCTS.chili['image'],
+                productDescription:
+                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
+                isActive: WEEKLYPRODUCTS.chili['isActive'],
+                multipleTabsFix: tabsFix,
+              ),
+              ProductWeekCard(
+                productName: WEEKLYPRODUCTS.strawberry['name'],
+                image: WEEKLYPRODUCTS.strawberry['image'],
+                productDescription:
+                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
+                isActive: WEEKLYPRODUCTS.strawberry['isActive'],
+                multipleTabsFix: tabsFix,
+              ),
+              ProductWeekCard(
+                productName: WEEKLYPRODUCTS.egg['name'],
+                image: WEEKLYPRODUCTS.egg['image'],
+                productDescription:
+                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
+                isActive: WEEKLYPRODUCTS.egg['isActive'],
+                multipleTabsFix: tabsFix,
+              ),
+              ProductWeekCard(
                 productName: WEEKLYPRODUCTS.garlic['name'],
                 image: WEEKLYPRODUCTS.garlic['image'],
-                productDescription: WEEKLYPRODUCTS.garlic['description'],
+                productDescription:
+                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
                 isActive: WEEKLYPRODUCTS.garlic['isActive'],
                 multipleTabsFix: tabsFix,
               ),
               ProductWeekCard(
                 productName: WEEKLYPRODUCTS.lettuce['name'],
                 image: WEEKLYPRODUCTS.lettuce['image'],
-                productDescription: WEEKLYPRODUCTS.lettuce['description'],
+                productDescription:
+                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
                 isActive: WEEKLYPRODUCTS.lettuce['isActive'],
                 multipleTabsFix: tabsFix,
               ),
               ProductWeekCard(
                 productName: WEEKLYPRODUCTS.carrot['name'],
                 image: WEEKLYPRODUCTS.carrot['image'],
-                productDescription: WEEKLYPRODUCTS.carrot['description'],
+                productDescription:
+                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
                 isActive: WEEKLYPRODUCTS.carrot['isActive'],
                 multipleTabsFix: tabsFix,
               ),
               ProductWeekCard(
                 productName: WEEKLYPRODUCTS.tomatoes['name'],
                 image: WEEKLYPRODUCTS.tomatoes['image'],
-                productDescription: WEEKLYPRODUCTS.tomatoes['description'],
+                productDescription:
+                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
                 isActive: WEEKLYPRODUCTS.tomatoes['isActive'],
                 multipleTabsFix: tabsFix,
               ),
               ProductWeekCard(
                 productName: WEEKLYPRODUCTS.avocado['name'],
                 image: WEEKLYPRODUCTS.avocado['image'],
-                productDescription: WEEKLYPRODUCTS.avocado['description'],
+                productDescription:
+                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
                 isActive: WEEKLYPRODUCTS.avocado['isActive'],
                 multipleTabsFix: tabsFix,
               ),

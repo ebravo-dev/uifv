@@ -6,7 +6,7 @@ import 'package:ui2/values/colors.dart';
 
 class ProductWeekCard extends StatelessWidget {
   final String productName;
-  final String productDescription;
+  final Map<String, dynamic> productDescription;
   final Widget image;
   final bool isActive;
   final MultipleTabsFix multipleTabsFix;
@@ -79,7 +79,7 @@ class ProductWeekCard extends StatelessWidget {
                             height: 5,
                           ),
                           Text(
-                            productDescription,
+                            productDescription[productDescription.keys.first],
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

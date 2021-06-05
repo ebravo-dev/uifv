@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ui2/values/colors.dart';
-import 'package:ui2/widgets/navigation_button.dart';
+import 'package:ui2/widgets/description_item.dart';
 
 class SplashProductPage extends StatelessWidget {
   final Widget imageHero;
   final String productName;
-  final String productDescription;
+  final Map<String, dynamic> productDescription;
 
   const SplashProductPage(
       {Key key, this.imageHero, this.productName, this.productDescription})
@@ -44,7 +44,7 @@ class SplashProductPage extends StatelessWidget {
 class ViewProductPage extends StatefulWidget {
   final Widget imageHero;
   final String productName;
-  final String productDescription;
+  final Map<String, dynamic> productDescription;
 
   const ViewProductPage(
       {Key key, this.imageHero, this.productName, this.productDescription})
@@ -57,18 +57,33 @@ class ViewProductPage extends StatefulWidget {
 }
 
 class ViewProductPageState extends State<ViewProductPage> {
-  bool estado = true;
+  final List<Widget> descriptionWidgets = [];
+  bool initWaitFlag = true;
+
+  @override
+  void initState() {
+    final Map<String, dynamic> productDescription = widget.productDescription;
+    productDescription.forEach(
+      (key, value) => descriptionWidgets.add(
+        DescriptionItem(
+          header: key,
+          description: value,
+        ),
+      ),
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(milliseconds: 500)).whenComplete(() {
       if (mounted)
         setState(() {
-          estado = false;
+          initWaitFlag = false;
         });
     });
     return WillPopScope(
-      onWillPop: () async => !estado,
+      onWillPop: () async => !initWaitFlag,
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -82,11 +97,13 @@ class ViewProductPageState extends State<ViewProductPage> {
               child: Row(
                 children: [
                   AnimatedOpacity(
-                    opacity: estado ? 0 : 1,
+                    opacity: initWaitFlag ? 0 : 1,
                     duration: Duration(milliseconds: 500),
                     child: IconButton(
                       icon: Icon(Icons.arrow_back),
-                      onPressed: () {},
+                      onPressed: () {
+                        if (!initWaitFlag) Navigator.pop(context);
+                      },
                       color: loginSplashColor,
                     ),
                   ),
@@ -115,34 +132,13 @@ class ViewProductPageState extends State<ViewProductPage> {
                 height: 80,
               ),
               AnimatedOpacity(
-                opacity: estado ? 0 : 1,
+                opacity: initWaitFlag ? 0 : 1,
                 duration: Duration(milliseconds: 500),
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 60),
+                  padding: EdgeInsets.only(right: 50, left: 50, bottom: 60),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Beneficios',
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: loginSplashColor,
-                          fontWeight: FontWeight.w500,
-                          // fontFamily: 'Nunito',
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        widget.productDescription,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontFamily: 'Nunito',
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
+                    children: descriptionWidgets,
                   ),
                 ),
               ),
@@ -150,7 +146,7 @@ class ViewProductPageState extends State<ViewProductPage> {
           ),
         ),
         floatingActionButton: AnimatedOpacity(
-          opacity: estado ? 0 : 1,
+          opacity: initWaitFlag ? 0 : 1,
           duration: Duration(milliseconds: 500),
           child: Container(
             margin: EdgeInsets.only(left: 33, bottom: 10, top: 10),
@@ -168,7 +164,7 @@ class ViewProductPageState extends State<ViewProductPage> {
                       ),
                     ),
                     child: Text(
-                      'Agregar',
+                      'Activar',
                       style: TextStyle(
                         fontSize: 18,
                       ),
