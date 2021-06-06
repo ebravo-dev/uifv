@@ -1,7 +1,14 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:ui2/pages/girasolRegarPage.dart';
+import 'package:ui2/pages/girasolSembrarPage.dart';
+import 'package:ui2/pages/girasolSolearPage.dart';
+import 'package:ui2/utils/fix.dart';
+import 'package:ui2/values/colors.dart';
 import 'package:ui2/widgets/divine_card.dart';
+import 'package:ui2/widgets/navigation_button.dart';
 import 'package:ui2/widgets/products_divider.dart';
 
 class ActivitiesPage extends StatefulWidget {
@@ -23,14 +30,60 @@ class ActivitiesPageState extends State<ActivitiesPage> {
   }
 }
 
-class EventsPage extends StatelessWidget {
+class EventsPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return EventsPageState();
+  }
+}
+
+class EventsPageState extends State<EventsPage> {
+  final MultipleTabsFix tabsFix = MultipleTabsFix();
+  final AuxEstadoEvento siSembrar = AuxEstadoEvento();
+  final AuxEstadoEvento siSolear = AuxEstadoEvento();
+  final AuxEstadoEvento siRegar = AuxEstadoEvento();
+
+  void refresh() {
+    Future.delayed(Duration(milliseconds: 400)).whenComplete(() {
+      if (mounted) setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        padding: EdgeInsets.only(
-          top: 100,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(20),
+          child: Container(
+            margin: EdgeInsets.only(bottom: 10),
+            width: 340,
+            child: Row(
+              children: [
+                NavigationButton(
+                  icon: Icons.menu,
+                  action: () {},
+                  barckgroundColor: Color(0xfff7f8f9),
+                ),
+                Expanded(
+                  child: SizedBox(),
+                ),
+                NavigationButton(
+                  action: () {},
+                  barckgroundColor: Color(0xff03568c),
+                ),
+              ],
+            ),
+          ),
         ),
+        brightness: Brightness.light,
+      ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.only(top: 40, bottom: 80),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -44,7 +97,7 @@ class EventsPage extends StatelessWidget {
                 'Mis\nActividades',
                 style: TextStyle(
                   fontSize: 36,
-                  // fontFamily: 'Montserrat',
+                  // fontFamily: 'Nunito',
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -73,6 +126,12 @@ class EventsPage extends StatelessWidget {
                 subtitle: 'Girasol',
                 fontSize: 28.0,
                 fontColor: Colors.white,
+                tabsFix: tabsFix,
+                contenidoConstante: SembrarGirasol(
+                  estadoEvento: siSembrar,
+                  refreshEvent: refresh,
+                ),
+                activado: siSembrar,
               ),
             ),
             SizedBox(
@@ -102,6 +161,12 @@ class EventsPage extends StatelessWidget {
                 subtitle: 'Girasol',
                 fontSize: 28.0,
                 fontColor: Colors.white,
+                tabsFix: tabsFix,
+                activado: siSolear,
+                contenidoConstante: SolearPage(
+                  estadoEvento: siSolear,
+                  refreshEvent: refresh,
+                ),
               ),
             ),
             SizedBox(
@@ -128,6 +193,12 @@ class EventsPage extends StatelessWidget {
                 subtitle: 'Girasol',
                 fontSize: 28.0,
                 fontColor: Colors.white,
+                tabsFix: tabsFix,
+                activado: siRegar,
+                contenidoConstante: RegarPage(
+                  estadoEvento: siRegar,
+                  refreshEvent: refresh,
+                ),
               ),
             ),
           ],
