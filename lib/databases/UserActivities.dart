@@ -55,7 +55,7 @@ create table $tableUser (
     return user;
   }
 
-  Future<UserActivities> getUser(int id) async {
+  Future<UserActivities> getActivitiesById({int id}) async {
     List<Map> maps = await db.query(tableUser,
         columns: [columnId, columnActividadId, columnProductoId, columnFecha],
         where: '$columnId = ?',
@@ -66,10 +66,19 @@ create table $tableUser (
     return null;
   }
 
-  Future<List<Map>> getUsers() async {
+  Future<List<Map>> getActivities({List<String> productosActivos}) async {
+    String argsProductosActivos = '';
+    int i = 0;
+    for (i = 0; i < productosActivos.length - 1; i++) {
+      argsProductosActivos += productosActivos[i] + ',';
+    }
+    argsProductosActivos += productosActivos[i];
+
     List<Map> users = await db.query(
       tableUser,
       columns: [columnId, columnActividadId, columnProductoId, columnFecha],
+      where: '$columnProductoId IN = (?)',
+      whereArgs: [argsProductosActivos],
     );
     return users;
   }
