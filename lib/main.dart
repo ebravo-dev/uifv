@@ -98,6 +98,84 @@ class MyApp extends StatelessWidget {
                   ]
                 }
               ]
+            },
+            {
+              "planta_id": "idfresa",
+              "nombre": "fresa",
+              "activo": true,
+              "descripcion": "alguna descripcion",
+              "actividades": [
+                {
+                  "actividad_id": "act3",
+                  "fecha_de_creacion": "la fecha",
+                  "actividad_diaria": false,
+                  "titulo": "Sembrar",
+                  "icon_name": "maceta.svg",
+                  "subtitulo": "¿Cómo iniciar a sembrarlo?",
+                  "contenido": [
+                    {
+                      "multimedia": [
+                        {
+                          "tipo": "imagen",
+                          "url":
+                              "https://cdn.ticbeat.com/src/uploads/2018/02/por-que-aceptar-bebida-entrevista-trabajo-810x540.jpg"
+                        },
+                      ],
+                      "texto": "Poner las pipas o semillas en agua"
+                    },
+                    {
+                      "multimedia": [
+                        {
+                          "tipo": "imagen",
+                          "url":
+                              "https://cdn.ticbeat.com/src/uploads/2018/02/por-que-aceptar-bebida-entrevista-trabajo-810x540.jpg"
+                        },
+                        {
+                          "tipo": "imagen",
+                          "url":
+                              "https://cdn.ticbeat.com/src/uploads/2018/02/por-que-aceptar-bebida-entrevista-trabajo-810x540.jpg"
+                        }
+                      ],
+                      "texto": "La fresa se siembra asi"
+                    }
+                  ]
+                },
+                {
+                  "actividad_id": "act4",
+                  "fecha_de_creacion": "la fecha",
+                  "actividad_diaria": true,
+                  "titulo": "Solear",
+                  "icon_name": "dom.svg",
+                  "subtitulo": "Mantener la planta soleada",
+                  "contenido": [
+                    {
+                      "multimedia": [
+                        {
+                          "tipo": "imagen",
+                          "url":
+                              "https://cdn.ticbeat.com/src/uploads/2018/02/por-que-aceptar-bebida-entrevista-trabajo-810x540.jpg"
+                        },
+                      ],
+                      "texto": "Poner las pipas o semillas en agua"
+                    },
+                    {
+                      "multimedia": [
+                        {
+                          "tipo": "imagen",
+                          "url":
+                              "https://cdn.ticbeat.com/src/uploads/2018/02/por-que-aceptar-bebida-entrevista-trabajo-810x540.jpg"
+                        },
+                        {
+                          "tipo": "imagen",
+                          "url":
+                              "https://cdn.ticbeat.com/src/uploads/2018/02/por-que-aceptar-bebida-entrevista-trabajo-810x540.jpg"
+                        }
+                      ],
+                      "texto": "La fresa se siembra asi"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },

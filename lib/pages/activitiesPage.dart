@@ -58,6 +58,7 @@ class EventsPageState extends State<EventsPage> {
       padding: EdgeInsets.symmetric(
         horizontal: 20,
       ),
+      margin: EdgeInsets.only(bottom: 20),
       child: DivineCard(
         height: 180.0,
         color: color,
@@ -71,8 +72,9 @@ class EventsPageState extends State<EventsPage> {
         buttonBackground: subColor,
         icon: EvaIcons.arrowForward,
         iconColor: Colors.white,
-        title: accion,
-        subtitle: nombreProducto,
+        title: accion[0].toUpperCase() + accion.substring(1).toLowerCase(),
+        subtitle: nombreProducto[0].toUpperCase() +
+            nombreProducto.substring(1).toLowerCase(),
         fontSize: 28.0,
         fontColor: Colors.white,
         tabsFix: tabsFix,
@@ -165,7 +167,6 @@ class EventsPageState extends State<EventsPage> {
 
     listBody.add(ProductsDivider(label: 'Actividades iniciales'));
     listBody.addAll(actividadesIniciales);
-    listBody.add(SizedBox(height: 10));
     listBody.add(ProductsDivider(label: 'Actividades diarias'));
     listBody.addAll(actividadesDiarias);
 
