@@ -85,6 +85,7 @@ class EventsPageState extends State<EventsPage> {
           colorPage: color,
           actividadId: actividadId,
           productoId: productoId,
+          nombreActividad: accion,
         ),
         activado: siSembrar,
       ),

@@ -8,6 +8,7 @@ class ActivityProductPage extends StatelessWidget {
   final AuxEstadoEvento estadoEvento;
   final Function refreshEvent;
   final String nombreProducto;
+  final String nombreActividad;
   final String subtitulo;
   final List<Map<String, dynamic>> contenido;
   final Color colorPage;
@@ -24,6 +25,7 @@ class ActivityProductPage extends StatelessWidget {
     this.colorPage,
     this.actividadId,
     this.productoId,
+    this.nombreActividad,
   }) : super(key: key);
 
   List<Widget> listBody() {
@@ -174,22 +176,24 @@ class ActivityProductPage extends StatelessWidget {
                       barrierDismissible: false,
                       builder: (c) {
                         return AlertDialog(
-                          title: Text('Sembrar girasol'),
+                          title: Text(
+                            nombreActividad + " " + nombreProducto,
+                          ),
                           content: Text('¿Deseas finalizar esta actividad?'),
                           actions: [
                             TextButton(
-                              child: Text('No'),
+                              child: Text('NO'),
                               onPressed: () {
                                 Navigator.pop(context);
                               },
                             ),
                             TextButton(
                               child: Text(
-                                'Si',
+                                'SI',
                               ),
                               onPressed: () async {
-                                // Navigator.pop(context);
-                                // Navigator.pop(context);
+                                Navigator.pop(context);
+                                //Navigator.pop(context);
                                 //estadoEvento.estado = true;
                                 //refreshEvent();
                                 var dbUser = UserActivitiesProvider();
@@ -208,13 +212,14 @@ class ActivityProductPage extends StatelessWidget {
                                     context: context,
                                     builder: (c) {
                                       return AlertDialog(
-                                        title: Text('Guardado'),
+                                        title: Text('Muy bien!'),
                                         content: Text(
-                                            'Haz sumado una nueva acción a tu progreso'),
+                                            'Haz registrado una nueva actividad a tu progreso'),
                                         actions: [
                                           TextButton(
-                                            child: Text('ok'),
+                                            child: Text('OK'),
                                             onPressed: () {
+                                              Navigator.pop(context);
                                               Navigator.pop(context);
                                             },
                                           ),
