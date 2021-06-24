@@ -2,6 +2,8 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:ui2/databases/UserActivities.dart';
+import 'package:ui2/databases/nameDb.dart';
 import 'package:ui2/pages/activityProductPage.dart';
 import 'package:ui2/pages/girasolRegarPage.dart';
 import 'package:ui2/pages/girasolSembrarPage.dart';
@@ -43,6 +45,16 @@ class EventsPageState extends State<EventsPage> {
     super.initState();
   }
 
+  Future<dynamic> getCompleteActivities() async {
+    var db = UserActivitiesProvider();
+    await db.open(actividadesDBNAME);
+    var actividades = await db.getActivities(
+      productosActivos: widget.idActivatesProducts,
+    );
+    await db.close();
+    return actividades;
+  }
+
   Widget activityCard({
     String accion,
     String nombreProducto,
@@ -75,7 +87,7 @@ class EventsPageState extends State<EventsPage> {
         title: accion[0].toUpperCase() + accion.substring(1).toLowerCase(),
         subtitle: nombreProducto[0].toUpperCase() +
             nombreProducto.substring(1).toLowerCase(),
-        fontSize: 28.0,
+        fontSize: 24.0,
         fontColor: Colors.white,
         tabsFix: tabsFix,
         contenidoConstante: ActivityProductPage(
@@ -127,11 +139,11 @@ class EventsPageState extends State<EventsPage> {
           actividades.forEach((actividad) {
             String accion = actividad['titulo'];
             String subtitulo = actividad['subtitulo'];
-            bool actividadDiaria = actividad['actividad_diaria'];
+            bool esActividadDiaria = actividad['actividad_diaria'];
             String idActividad = actividad['actividad_id'];
             List<Map<String, dynamic>> contenido = actividad['contenido'];
 
-            if (actividadDiaria) {
+            if (esActividadDiaria) {
               actividadesDiarias.add(
                 activityCard(
                   accion: accion,
@@ -196,7 +208,15 @@ class EventsPageState extends State<EventsPage> {
                   child: SizedBox(),
                 ),
                 NavigationButton(
-                  action: () {},
+                  action: () async {
+                    // var x = await getCompleteActivities();
+                    // print(x);
+                    // var db = UserActivitiesProvider();
+                    // await db.open(actividadesDBNAME);
+                    // await db.getActivityState(
+                    //   idActividad: 'act1',
+                    // );
+                  },
                   barckgroundColor: Color(0xff03568c),
                 ),
               ],
@@ -213,104 +233,6 @@ class EventsPageState extends State<EventsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: obtenerActividades(),
-                // children: [
-                //   Container(
-                //     padding: EdgeInsets.symmetric(
-                //       horizontal: 20,
-                //     ),
-                //     child: DivineCard(
-                //       height: 180.0,
-                //       color: Color(0xFF003d64),
-                //       shadowColor: Colors.black38,
-                //       blurRadius: 12.0,
-                //       img: 'assets/img/maceta.svg',
-                //       imgHeight: 180.0,
-                //       imgWidth: 180.0,
-                //       buttonText: 'Ver más',
-                //       buttonColor: Colors.white,
-                //       buttonBackground: Color(0xff03568c),
-                //       icon: EvaIcons.arrowForward,
-                //       iconColor: Colors.white,
-                //       title: 'Sembrar',
-                //       subtitle: 'Girasol',
-                //       fontSize: 28.0,
-                //       fontColor: Colors.white,
-                //       tabsFix: tabsFix,
-                //       contenidoConstante: SembrarGirasol(
-                //         estadoEvento: siSembrar,
-                //         refreshEvent: refresh,
-                //       ),
-                //       activado: siSembrar,
-                //     ),
-                //   ),
-                //   SizedBox(
-                //     height: 10,
-                //   ),
-                //   ProductsDivider(
-                //     label: 'Actividades diarias',
-                //   ),
-                //   Container(
-                //     padding: EdgeInsets.symmetric(
-                //       horizontal: 20,
-                //     ),
-                //     child: DivineCard(
-                //       height: 180.0,
-                //       color: Color(0xFF5F283D),
-                //       shadowColor: Colors.black38,
-                //       blurRadius: 12.0,
-                //       img: 'assets/img/dom.svg',
-                //       imgHeight: 180.0,
-                //       imgWidth: 180.0,
-                //       buttonText: 'Ver más',
-                //       buttonColor: Colors.white,
-                //       buttonBackground: Color(0xff734355),
-                //       icon: EvaIcons.arrowForward,
-                //       iconColor: Colors.white,
-                //       title: 'Solear',
-                //       subtitle: 'Girasol',
-                //       fontSize: 28.0,
-                //       fontColor: Colors.white,
-                //       tabsFix: tabsFix,
-                //       activado: siSolear,
-                //       contenidoConstante: SolearPage(
-                //         estadoEvento: siSolear,
-                //         refreshEvent: refresh,
-                //       ),
-                //     ),
-                //   ),
-                //   SizedBox(
-                //     height: 20,
-                //   ),
-                //   Container(
-                //     padding: EdgeInsets.symmetric(
-                //       horizontal: 20,
-                //     ),
-                //     child: DivineCard(
-                //       height: 180.0,
-                //       color: Color(0xFF5F283D),
-                //       shadowColor: Colors.black38,
-                //       blurRadius: 12.0,
-                //       img: 'assets/img/planta.svg',
-                //       imgHeight: 180.0,
-                //       imgWidth: 180.0,
-                //       buttonText: 'Ver más',
-                //       buttonColor: Colors.white,
-                //       buttonBackground: Color(0xff734355),
-                //       icon: EvaIcons.arrowForward,
-                //       iconColor: Colors.white,
-                //       title: 'Regar',
-                //       subtitle: 'Girasol',
-                //       fontSize: 28.0,
-                //       fontColor: Colors.white,
-                //       tabsFix: tabsFix,
-                //       activado: siRegar,
-                //       contenidoConstante: RegarPage(
-                //         estadoEvento: siRegar,
-                //         refreshEvent: refresh,
-                //       ),
-                //     ),
-                //   ),
-                // ],
               ),
             ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ui2/databases/UserActivities.dart';
+import 'package:ui2/databases/nameDb.dart';
 import 'package:ui2/utils/fix.dart';
 import 'package:ui2/values/colors.dart';
 
@@ -197,7 +198,7 @@ class ActivityProductPage extends StatelessWidget {
                                 //estadoEvento.estado = true;
                                 //refreshEvent();
                                 var dbUser = UserActivitiesProvider();
-                                await dbUser.open('actividades_usuario');
+                                await dbUser.open(actividadesDBNAME);
                                 await dbUser
                                     .insert(UserActivities(
                                   actividadId: actividadId,

@@ -95,13 +95,16 @@ class DivineCard extends StatelessWidget {
                               fontWeight: FontWeight.w600),
                         ),
                         AnimatedOpacity(
-                          opacity: activado.estado ? 1 : 0,
+                          opacity: 1,
                           duration: Duration(milliseconds: 300),
                           child: Container(
-                            padding: EdgeInsets.only(left: 5, top: 8),
+                            padding: EdgeInsets.only(
+                              left: 5,
+                              top: 3,
+                            ),
                             child: Icon(
-                              Icons.check_circle,
-                              size: 18,
+                              Icons.check,
+                              size: 22,
                               color: Colors.white,
                             ),
                           ),
@@ -114,9 +117,12 @@ class DivineCard extends StatelessWidget {
                     Text(
                       subtitle,
                       style: TextStyle(
-                          color: fontColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                        color: fontColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'montserrat',
+                        letterSpacing: 1.3,
+                      ),
                     ),
                     SizedBox(
                       height: 20.0,

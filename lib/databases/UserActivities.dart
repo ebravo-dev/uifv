@@ -70,17 +70,29 @@ create table $tableUser (
     String argsProductosActivos = '';
     int i = 0;
     for (i = 0; i < productosActivos.length - 1; i++) {
-      argsProductosActivos += productosActivos[i] + ',';
+      argsProductosActivos += '?,';
     }
-    argsProductosActivos += productosActivos[i];
-
-    List<Map> users = await db.query(
+    argsProductosActivos += '?';
+    List<Map> actividadesDb = await db.query(
       tableUser,
       columns: [columnId, columnActividadId, columnProductoId, columnFecha],
-      where: '$columnProductoId IN = (?)',
-      whereArgs: [argsProductosActivos],
+      where: '$columnProductoId IN ($argsProductosActivos)',
+      whereArgs: productosActivos,
     );
-    return users;
+
+    return actividadesDb;
+  }
+
+  Future<bool> getActivityState({String idActividad}) async {
+    List<Map> targetActivity = await db.query(
+      tableUser,
+      where: '$columnActividadId = ?',
+      whereArgs: [idActividad],
+      orderBy: '$columnFecha DESC',
+      limit: 1,
+    );
+    print(targetActivity);
+    return true;
   }
 
   Future<int> delete(int id) async {
