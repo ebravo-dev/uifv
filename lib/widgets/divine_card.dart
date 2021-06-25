@@ -24,7 +24,7 @@ class DivineCard extends StatelessWidget {
       this.onTap,
       this.tabsFix,
       this.contenidoConstante,
-      this.activado});
+      this.activado = false});
   final MultipleTabsFix tabsFix;
   final double height;
   final Color color;
@@ -44,7 +44,7 @@ class DivineCard extends StatelessWidget {
   final String img;
   final Function onTap;
   final Widget contenidoConstante;
-  final AuxEstadoEvento activado;
+  final bool activado;
 
   @override
   Widget build(BuildContext context) {
@@ -94,21 +94,19 @@ class DivineCard extends StatelessWidget {
                               fontSize: fontSize,
                               fontWeight: FontWeight.w600),
                         ),
-                        AnimatedOpacity(
-                          opacity: 1,
-                          duration: Duration(milliseconds: 300),
-                          child: Container(
-                            padding: EdgeInsets.only(
-                              left: 5,
-                              top: 3,
-                            ),
-                            child: Icon(
-                              Icons.check,
-                              size: 22,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+                        activado
+                            ? Container(
+                                padding: EdgeInsets.only(
+                                  left: 5,
+                                  top: 3,
+                                ),
+                                child: Icon(
+                                  Icons.check,
+                                  size: 22,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : SizedBox(),
                       ],
                     ),
                     SizedBox(

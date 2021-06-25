@@ -222,6 +222,7 @@ class ActivityProductPage extends StatelessWidget {
                                             onPressed: () {
                                               Navigator.pop(context);
                                               Navigator.pop(context);
+                                              refreshEvent();
                                             },
                                           ),
                                         ],

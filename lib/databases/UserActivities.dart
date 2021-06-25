@@ -83,7 +83,7 @@ create table $tableUser (
     return actividadesDb;
   }
 
-  Future<bool> getActivityState({String idActividad}) async {
+  Future<Map> getActivityState({String idActividad}) async {
     List<Map> targetActivity = await db.query(
       tableUser,
       where: '$columnActividadId = ?',
@@ -91,8 +91,21 @@ create table $tableUser (
       orderBy: '$columnFecha DESC',
       limit: 1,
     );
-    print(targetActivity);
-    return true;
+    if (targetActivity.isEmpty)
+      return {
+        'fechaigual': false,
+        'cantidad': 0,
+      };
+    String fecha = targetActivity[0]['fecha'];
+    DateTime fechaActividad = DateTime.parse(fecha);
+    DateTime currentDate = DateTime.now();
+
+    return {
+      'fechaigual': fechaActividad.year == currentDate.year &&
+          fechaActividad.month == currentDate.month &&
+          fechaActividad.day == currentDate.day,
+      'cantidad': 1,
+    };
   }
 
   Future<int> delete(int id) async {

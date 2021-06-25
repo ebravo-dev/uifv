@@ -36,7 +36,21 @@ class EventsPageState extends State<EventsPage> {
 
   void refresh() {
     Future.delayed(Duration(milliseconds: 400)).whenComplete(() {
-      if (mounted) setState(() {});
+      if (mounted)
+        setState(() {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Guarda y observa el progreso de tus productos. Dirigite a menu -> capturas',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+            ),
+          );
+        });
     });
   }
 
@@ -65,6 +79,7 @@ class EventsPageState extends State<EventsPage> {
     List<Map<String, dynamic>> contenido,
     String actividadId,
     String productoId,
+    bool activado,
   }) {
     return Container(
       padding: EdgeInsets.symmetric(
@@ -101,12 +116,12 @@ class EventsPageState extends State<EventsPage> {
           productoId: productoId,
           nombreActividad: accion,
         ),
-        activado: siSembrar,
+        activado: activado,
       ),
     );
   }
 
-  List<Widget> obtenerActividades() {
+  Future<List<Widget>> obtenerActividades() async {
     List<Widget> listBody = [];
     List<Map<String, dynamic>> allProducts = widget.allProducts['plantas'];
     Set<String> idActivatesProducts = widget.idActivatesProducts.toSet();
@@ -130,57 +145,90 @@ class EventsPageState extends State<EventsPage> {
 
     List<Widget> actividadesDiarias = [];
     List<Widget> actividadesIniciales = [];
-    allProducts.forEach((producto) {
+    List<Widget> actividadesInicialesTerminadas = [];
+    List<Widget> actividadesDiariasTerminadas = [];
+    for (int i = 0; i < allProducts.length; i++) {
+      var producto = allProducts[i];
       String nombreProducto = producto['nombre'];
       if (producto['activo'] == true) {
         String idProducto = producto['planta_id'];
         if (idActivatesProducts.contains(idProducto)) {
           List<Map<String, dynamic>> actividades = producto['actividades'];
-          actividades.forEach((actividad) {
+
+          for (int j = 0; j < actividades.length; j++) {
+            var actividad = actividades[j];
             String accion = actividad['titulo'];
             String subtitulo = actividad['subtitulo'];
             bool esActividadDiaria = actividad['actividad_diaria'];
             String idActividad = actividad['actividad_id'];
             List<Map<String, dynamic>> contenido = actividad['contenido'];
-
-            if (esActividadDiaria) {
-              actividadesDiarias.add(
-                activityCard(
-                  accion: accion,
-                  nombreProducto: nombreProducto,
-                  icono: actividad['icon_name'],
-                  color: Color(0xFF5F283D),
-                  subColor: Color(0xff734355),
-                  subtitulo: subtitulo,
-                  contenido: contenido,
-                  productoId: idProducto,
-                  actividadId: idActividad,
-                ),
-              );
+            var db = UserActivitiesProvider();
+            await db.open(actividadesDBNAME);
+            Map obtenerEstadoDeActividad = await db.getActivityState(
+              idActividad: idActividad,
+            );
+            bool actividadTerminada;
+            if (!esActividadDiaria &&
+                obtenerEstadoDeActividad['cantidad'] == 1) {
+              actividadTerminada = true;
             } else {
-              actividadesIniciales.add(
-                activityCard(
-                  accion: accion,
-                  nombreProducto: nombreProducto,
-                  icono: actividad['icon_name'],
-                  color: Color(0xFF003d64),
-                  subColor: Color(0xff03568c),
-                  subtitulo: subtitulo,
-                  contenido: contenido,
-                  productoId: idProducto,
-                  actividadId: idActividad,
-                ),
-              );
+              actividadTerminada = obtenerEstadoDeActividad['fechaigual'];
             }
-          });
+
+            await db.close();
+            if (esActividadDiaria) {
+              var carta = activityCard(
+                accion: accion,
+                nombreProducto: nombreProducto,
+                icono: actividad['icon_name'],
+                color: Color(0xFF5F283D),
+                subColor: Color(0xff734355),
+                subtitulo: subtitulo,
+                contenido: contenido,
+                productoId: idProducto,
+                actividadId: idActividad,
+                activado: actividadTerminada,
+              );
+              if (actividadTerminada)
+                actividadesDiariasTerminadas.add(carta);
+              else
+                actividadesDiarias.add(carta);
+            } else {
+              var carta = activityCard(
+                accion: accion,
+                nombreProducto: nombreProducto,
+                icono: actividad['icon_name'],
+                color: Color(0xFF003d64),
+                subColor: Color(0xff03568c),
+                subtitulo: subtitulo,
+                contenido: contenido,
+                productoId: idProducto,
+                actividadId: idActividad,
+                activado: actividadTerminada,
+              );
+              if (actividadTerminada) {
+                actividadesInicialesTerminadas.add(carta);
+              } else {
+                actividadesIniciales.add(carta);
+              }
+            }
+          }
         }
       }
-    });
+    }
 
-    listBody.add(ProductsDivider(label: 'Actividades iniciales'));
+    if (actividadesIniciales.length > 0)
+      listBody.add(ProductsDivider(label: 'Actividades iniciales'));
     listBody.addAll(actividadesIniciales);
-    listBody.add(ProductsDivider(label: 'Actividades diarias'));
+    if (actividadesDiarias.length > 0)
+      listBody.add(ProductsDivider(label: 'Actividades diarias'));
     listBody.addAll(actividadesDiarias);
+    if (actividadesDiariasTerminadas.length > 0)
+      listBody.add(ProductsDivider(label: 'Diarias finalizadas'));
+    listBody.addAll(actividadesDiariasTerminadas);
+    if (actividadesInicialesTerminadas.length > 0)
+      listBody.add(ProductsDivider(label: 'Iniciales finalizadas'));
+    listBody.addAll(actividadesInicialesTerminadas);
 
     return listBody;
   }
@@ -188,54 +236,63 @@ class EventsPageState extends State<EventsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
         backgroundColor: Colors.white,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(20),
-          child: Container(
-            margin: EdgeInsets.only(bottom: 10),
-            width: 340,
-            child: Row(
-              children: [
-                NavigationButton(
-                  icon: Icons.menu,
-                  action: () {},
-                  barckgroundColor: Color(0xfff7f8f9),
-                ),
-                Expanded(
-                  child: SizedBox(),
-                ),
-                NavigationButton(
-                  action: () async {
-                    // var x = await getCompleteActivities();
-                    // print(x);
-                    // var db = UserActivitiesProvider();
-                    // await db.open(actividadesDBNAME);
-                    // await db.getActivityState(
-                    //   idActividad: 'act1',
-                    // );
-                  },
-                  barckgroundColor: Color(0xff03568c),
-                ),
-              ],
-            ),
-          ),
-        ),
-        brightness: Brightness.light,
-      ),
-      body: (widget.allProducts == null || widget.allProducts.isEmpty)
-          ? EmptyProductsPage()
-          : SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.only(top: 40, bottom: 80),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: obtenerActividades(),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(20),
+            child: Container(
+              margin: EdgeInsets.only(bottom: 10),
+              width: 340,
+              child: Row(
+                children: [
+                  NavigationButton(
+                    icon: Icons.menu,
+                    action: () {},
+                    barckgroundColor: Color(0xfff7f8f9),
+                  ),
+                  Expanded(
+                    child: SizedBox(),
+                  ),
+                  NavigationButton(
+                    action: () async {
+                      setState(() {});
+                      // var x = await getCompleteActivities();
+                      // print(x);
+                      // var db = UserActivitiesProvider();
+                      // await db.open(actividadesDBNAME);
+                      // await db.getActivityState(
+                      //   idActividad: 'act1',
+                      // );
+                    },
+                    barckgroundColor: Color(0xff03568c),
+                  ),
+                ],
               ),
             ),
-    );
+          ),
+          brightness: Brightness.light,
+        ),
+        body: (widget.allProducts == null || widget.allProducts.isEmpty)
+            ? EmptyProductsPage()
+            : FutureBuilder(
+                future: obtenerActividades(),
+                builder:
+                    (BuildContext c, AsyncSnapshot<List<Widget>> snapshot) {
+                  if (snapshot.hasData) {
+                    return SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      padding: EdgeInsets.only(top: 40, bottom: 80),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: snapshot.data,
+                      ),
+                    );
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                }));
   }
 }
 

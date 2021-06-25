@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
               "descripcion": "alguna descripcion",
               "actividades": [
                 {
-                  "actividad_id": "act1",
+                  "actividad_id": "act111",
                   "fecha_de_creacion": "la fecha",
                   "actividad_diaria": false,
                   "titulo": "Sembrar",
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
                   ]
                 },
                 {
-                  "actividad_id": "act2",
+                  "actividad_id": "act211",
                   "fecha_de_creacion": "la fecha",
                   "actividad_diaria": true,
                   "titulo": "Solear",
@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
               "descripcion": "alguna descripcion",
               "actividades": [
                 {
-                  "actividad_id": "act3",
+                  "actividad_id": "act311",
                   "fecha_de_creacion": "la fecha",
                   "actividad_diaria": false,
                   "titulo": "Sembrar",
@@ -141,7 +141,7 @@ class MyApp extends StatelessWidget {
                   ]
                 },
                 {
-                  "actividad_id": "act4",
+                  "actividad_id": "act411",
                   "fecha_de_creacion": "la fecha",
                   "actividad_diaria": true,
                   "titulo": "Solear",
@@ -174,7 +174,7 @@ class MyApp extends StatelessWidget {
                       "texto": "La fresa se siembra asi"
                     }
                   ]
-                }
+                },
               ]
             }
           ]
