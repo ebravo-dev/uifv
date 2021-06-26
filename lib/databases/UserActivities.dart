@@ -66,7 +66,8 @@ create table $tableUser (
     return null;
   }
 
-  Future<List<Map>> getActivities({List<String> productosActivos}) async {
+  Future<List<Map>> getActivities(
+      {List<String> productosActivos, int page, int limit}) async {
     String argsProductosActivos = '';
     int i = 0;
     for (i = 0; i < productosActivos.length - 1; i++) {
@@ -78,7 +79,19 @@ create table $tableUser (
       columns: [columnId, columnActividadId, columnProductoId, columnFecha],
       where: '$columnProductoId IN ($argsProductosActivos)',
       whereArgs: productosActivos,
+      orderBy: '$columnFecha DESC',
+      limit: limit,
+      offset: page * limit,
     );
+
+    List<Map> actividadesDb2 = await db.query(
+      tableUser,
+      columns: [columnId, columnActividadId, columnProductoId, columnFecha],
+      where: '$columnProductoId IN ($argsProductosActivos)',
+      whereArgs: productosActivos,
+    );
+
+    print('->>>>>>' + actividadesDb2.length.toString());
 
     return actividadesDb;
   }

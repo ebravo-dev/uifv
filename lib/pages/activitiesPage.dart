@@ -59,15 +59,15 @@ class EventsPageState extends State<EventsPage> {
     super.initState();
   }
 
-  Future<dynamic> getCompleteActivities() async {
-    var db = UserActivitiesProvider();
-    await db.open(actividadesDBNAME);
-    var actividades = await db.getActivities(
-      productosActivos: widget.idActivatesProducts,
-    );
-    await db.close();
-    return actividades;
-  }
+  // Future<dynamic> getCompleteActivities() async {
+  //   var db = UserActivitiesProvider();
+  //   await db.open(actividadesDBNAME);
+  //   var actividades = await db.getActivities(
+  //     productosActivos: widget.idActivatesProducts,
+  //   );
+  //   await db.close();
+  //   return actividades;
+  // }
 
   Widget activityCard({
     String accion,
@@ -290,7 +290,9 @@ class EventsPageState extends State<EventsPage> {
                       ),
                     );
                   } else {
-                    return CircularProgressIndicator();
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
                 }));
   }

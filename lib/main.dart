@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui2/pages/activitiesPage.dart';
+import 'package:ui2/pages/logActivityPage.dart';
 import 'package:ui2/pages/selectProductPage.dart';
 import 'package:ui2/pages/splashPage.dart';
 import 'package:ui2/utils/ux_methods.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'FV',
       themeMode: ThemeMode.light,
       theme: ThemeData.light(),
-      home: EventsPage(
+      home: LogActivityPage(
         idActivatesProducts: ['idgirasol', 'idfresa'],
         allProducts: {
           "plantas": [
