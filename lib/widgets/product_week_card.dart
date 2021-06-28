@@ -10,6 +10,7 @@ class ProductWeekCard extends StatelessWidget {
   final Widget image;
   final bool isActive;
   final MultipleTabsFix multipleTabsFix;
+  final String idProducto;
 
   const ProductWeekCard({
     Key key,
@@ -18,6 +19,7 @@ class ProductWeekCard extends StatelessWidget {
     @required this.productDescription,
     @required this.isActive,
     @required this.multipleTabsFix,
+    @required this.idProducto,
   }) : super(key: key);
 
   @override
@@ -68,7 +70,8 @@ class ProductWeekCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            productName,
+                            productName[0].toUpperCase() +
+                                productName.substring(1).toLowerCase(),
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,

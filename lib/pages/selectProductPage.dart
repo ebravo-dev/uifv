@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ui2/utils/fix.dart';
@@ -24,8 +25,64 @@ class SelectProductPage extends StatefulWidget {
 class _SelectProductPageState extends State<SelectProductPage> {
   MultipleTabsFix tabsFix = MultipleTabsFix();
 
-  List<Widget> listBody() {
+  List<Widget> listBody(double widthScreen) {
     List<Widget> listBody = [];
+    listBody.addAll(
+      [
+        SizedBox(
+          width: widthScreen,
+          height: 15,
+        ),
+        Text(
+          'Hola Ricardo',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 26,
+            color: loginPrimaryColor,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          'Cual producto escogerás?',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.black,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Container(
+          width: 340,
+          padding: EdgeInsets.symmetric(
+            vertical: 6,
+            horizontal: 20,
+          ),
+          margin: EdgeInsets.only(bottom: 15),
+          decoration: BoxDecoration(
+            color: Color(0xfff7f8f9),
+            borderRadius: BorderRadius.circular(18),
+          ),
+          child: TextField(
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.grey.shade800,
+            ),
+            decoration: InputDecoration(
+              hintText: 'Buscar producto...',
+              hintStyle: TextStyle(color: Color(0xff9ca5ae)),
+              border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+            ),
+          ),
+        ),
+      ],
+    );
     List<Map<String, dynamic>> allProducts = widget.allProducts['plantas'];
     List<Widget> productoActivos = [];
     List<Widget> productoNoActivos = [];
@@ -35,20 +92,49 @@ class _SelectProductPageState extends State<SelectProductPage> {
       String idProducto = producto['planta_id'];
       String descripcion = producto['descripcion'];
       String urlImage = producto['foto_url'];
-      ProductWeekCard(
+      bool activo = producto['activo'];
+
+      var cartaWidget = ProductWeekCard(
         productName: nombreProducto,
-        image: CachedNetworkImage(
-          imageUrl: urlImage,
-          progressIndicatorBuilder: (context, url, downloadProgress) =>
-              CircularProgressIndicator(value: downloadProgress.progress),
-          errorWidget: (context, url, dynamic error) => const Icon(Icons.error),
+        idProducto: idProducto,
+        image: ClipRRect(
+          borderRadius: BorderRadius.circular(18),
+          child: CachedNetworkImage(
+            imageUrl: urlImage,
+            fit: BoxFit.cover,
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                CupertinoActivityIndicator(),
+            errorWidget: (context, url, dynamic error) =>
+                const Icon(Icons.error),
+          ),
         ),
-        productDescription: jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
-        isActive: WEEKLYPRODUCTS.sunFlower['isActive'],
+        productDescription: jsonDecode(descripcion),
+        isActive: activo,
         multipleTabsFix: tabsFix,
       );
-      if (producto['activo'] == true) {}
+      if (activo) {
+        productoActivos.add(cartaWidget);
+      } else {
+        productoNoActivos.add(cartaWidget);
+      }
     }
+    if (productoActivos.length > 0) {
+      listBody.add(
+        ProductsDivider(
+          label: 'Seleccionar Producto',
+        ),
+      );
+      listBody.addAll(productoActivos);
+    }
+    if (productoNoActivos.length > 0) {
+      listBody.add(
+        ProductsDivider(
+          label: 'Proximamente',
+        ),
+      );
+      listBody.addAll(productoNoActivos);
+    }
+    return listBody;
   }
 
   @override
@@ -91,138 +177,7 @@ class _SelectProductPageState extends State<SelectProductPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
-            children: [
-              SizedBox(
-                width: widthScreen,
-                height: 15,
-              ),
-              Text(
-                'Hola Ricardo',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 26,
-                  color: loginPrimaryColor,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Cual producto escogerás?',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                width: 340,
-                padding: EdgeInsets.symmetric(
-                  vertical: 6,
-                  horizontal: 20,
-                ),
-                margin: EdgeInsets.only(bottom: 15),
-                decoration: BoxDecoration(
-                  color: Color(0xfff7f8f9),
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey.shade800,
-                  ),
-                  decoration: InputDecoration(
-                    hintText: 'Buscar producto...',
-                    hintStyle: TextStyle(color: Color(0xff9ca5ae)),
-                    border: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                  ),
-                ),
-              ),
-              ProductsDivider(
-                label: 'Seleccionar Producto',
-              ),
-              ProductWeekCard(
-                productName: WEEKLYPRODUCTS.sunFlower['name'],
-                image: WEEKLYPRODUCTS.sunFlower['image'],
-                productDescription:
-                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
-                isActive: WEEKLYPRODUCTS.sunFlower['isActive'],
-                multipleTabsFix: tabsFix,
-              ),
-              ProductsDivider(
-                label: 'Proximamente',
-              ),
-              ProductWeekCard(
-                productName: WEEKLYPRODUCTS.chili['name'],
-                image: WEEKLYPRODUCTS.chili['image'],
-                productDescription:
-                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
-                isActive: WEEKLYPRODUCTS.chili['isActive'],
-                multipleTabsFix: tabsFix,
-              ),
-              ProductWeekCard(
-                productName: WEEKLYPRODUCTS.strawberry['name'],
-                image: WEEKLYPRODUCTS.strawberry['image'],
-                productDescription:
-                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
-                isActive: WEEKLYPRODUCTS.strawberry['isActive'],
-                multipleTabsFix: tabsFix,
-              ),
-              ProductWeekCard(
-                productName: WEEKLYPRODUCTS.egg['name'],
-                image: WEEKLYPRODUCTS.egg['image'],
-                productDescription:
-                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
-                isActive: WEEKLYPRODUCTS.egg['isActive'],
-                multipleTabsFix: tabsFix,
-              ),
-              ProductWeekCard(
-                productName: WEEKLYPRODUCTS.garlic['name'],
-                image: WEEKLYPRODUCTS.garlic['image'],
-                productDescription:
-                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
-                isActive: WEEKLYPRODUCTS.garlic['isActive'],
-                multipleTabsFix: tabsFix,
-              ),
-              ProductWeekCard(
-                productName: WEEKLYPRODUCTS.lettuce['name'],
-                image: WEEKLYPRODUCTS.lettuce['image'],
-                productDescription:
-                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
-                isActive: WEEKLYPRODUCTS.lettuce['isActive'],
-                multipleTabsFix: tabsFix,
-              ),
-              ProductWeekCard(
-                productName: WEEKLYPRODUCTS.carrot['name'],
-                image: WEEKLYPRODUCTS.carrot['image'],
-                productDescription:
-                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
-                isActive: WEEKLYPRODUCTS.carrot['isActive'],
-                multipleTabsFix: tabsFix,
-              ),
-              ProductWeekCard(
-                productName: WEEKLYPRODUCTS.tomatoes['name'],
-                image: WEEKLYPRODUCTS.tomatoes['image'],
-                productDescription:
-                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
-                isActive: WEEKLYPRODUCTS.tomatoes['isActive'],
-                multipleTabsFix: tabsFix,
-              ),
-              ProductWeekCard(
-                productName: WEEKLYPRODUCTS.avocado['name'],
-                image: WEEKLYPRODUCTS.avocado['image'],
-                productDescription:
-                    jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
-                isActive: WEEKLYPRODUCTS.avocado['isActive'],
-                multipleTabsFix: tabsFix,
-              ),
-            ],
+            children: listBody(widthScreen),
           ),
           // color: Colors.pink,
         ),

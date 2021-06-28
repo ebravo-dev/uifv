@@ -27,11 +27,12 @@ class MyApp extends StatelessWidget {
           "plantas": [
             {
               "planta_id": "idgirasol",
-              "nombre": "huevo",
+              "nombre": "girasol",
               "activo": true,
-              "descripcion": "alguna descripcion",
+              "descripcion":
+                  '{"Beneficios":"Las semillas de girasol se caracterizan por ser ricas en vitamina E, lo que les confiere diversas propiedades.\\n\\nEsta vitamina es un potente antioxidante, lo que ayuda a mantener sanas las células y con ello evitar diversas enfermedades.\\n\\nPor ejemplo, evitan que se oxide el colesterol, impidiendo así que se adhiera a las paredes de los vasos sanguíneos, reduciendo el riesgo de eventos cardiovasculares.","Sabias que":"También se les llama maíz de teja, debido a que los habitantes del pequeño poblado de Pinal de Amoles en Querétaro, donde el atole de esa semilla es tradicional, dejaban secar sobre las tejas de sus casas.","¿Las semillas de girasol engordan?":"Todo depende de cuánto comas. Ciertamente no son bajas en calorías. 100 gramos de semillas de girasol proporcionan 584 kcal. Veamos en detalle los valores nutricionales de las semillas de girasol."}',
               "foto_url":
-                  'https://cdn.ticbeat.com/src/uploads/2018/02/por-que-aceptar-bebida-entrevista-trabajo-810x540.jpg',
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdSI_I190gm5-zzj6MEF_6e0HWJ4CZZvs6Tg&usqp=CAU',
               "actividades": [
                 {
                   "actividad_id": "act111",
@@ -109,7 +110,10 @@ class MyApp extends StatelessWidget {
               "planta_id": "idfresa",
               "nombre": "fresa",
               "activo": false,
-              "descripcion": "alguna descripcion",
+              "descripcion":
+                  '{"Beneficios":"Las semillas de girasol se caracterizan por ser ricas en vitamina E, lo que les confiere diversas propiedades.\\n\\nEsta vitamina es un potente antioxidante, lo que ayuda a mantener sanas las células y con ello evitar diversas enfermedades.\\n\\nPor ejemplo, evitan que se oxide el colesterol, impidiendo así que se adhiera a las paredes de los vasos sanguíneos, reduciendo el riesgo de eventos cardiovasculares.","Sabias que":"También se les llama maíz de teja, debido a que los habitantes del pequeño poblado de Pinal de Amoles en Querétaro, donde el atole de esa semilla es tradicional, dejaban secar sobre las tejas de sus casas.","¿Las semillas de girasol engordan?":"Todo depende de cuánto comas. Ciertamente no son bajas en calorías. 100 gramos de semillas de girasol proporcionan 584 kcal. Veamos en detalle los valores nutricionales de las semillas de girasol."}',
+              "foto_url":
+                  'https://s1.eestatic.com/2020/04/28/ciencia/nutricion/fresas-frutas-nutriologia_485962162_151094680_1024x576.jpg',
               "actividades": [
                 {
                   "actividad_id": "act311",
