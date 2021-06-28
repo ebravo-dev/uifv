@@ -23,6 +23,8 @@ dependencies:
   google_maps: ^5.1.0
   google_maps_flutter: ^2.0.6
   cached_network_image: ^3.0.0
+  share: ^2.0.4
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
