@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ui2/pages/activitiesPage.dart';
 import 'package:ui2/pages/logActivityPage.dart';
+import 'package:ui2/pages/mapaPage.dart';
 import 'package:ui2/pages/selectProductPage.dart';
 import 'package:ui2/pages/splashPage.dart';
 import 'package:ui2/utils/ux_methods.dart';
@@ -18,22 +19,26 @@ class MyApp extends StatelessWidget {
       title: 'FV',
       themeMode: ThemeMode.light,
       theme: ThemeData.light(),
-      home: LogActivityPage(
-        idActivatesProducts: ['idgirasol', 'idfresa'],
+      // home: MapaPage(),
+      // home: SelectProductPage(),
+      home: SelectProductPage(
+        // idActivatesProducts: ['idgirasol', 'idfresa'],
         allProducts: {
           "plantas": [
             {
               "planta_id": "idgirasol",
-              "nombre": "girasol",
+              "nombre": "huevo",
               "activo": true,
               "descripcion": "alguna descripcion",
+              "foto_url":
+                  'https://cdn.ticbeat.com/src/uploads/2018/02/por-que-aceptar-bebida-entrevista-trabajo-810x540.jpg',
               "actividades": [
                 {
                   "actividad_id": "act111",
                   "fecha_de_creacion": "la fecha",
                   "actividad_diaria": false,
-                  "titulo": "Sembrar",
-                  "icon_name": "maceta.svg",
+                  "titulo": "Formar gallinero",
+                  "icon_name": "gallinero(1).svg",
                   "subtitulo": "¿Cómo iniciar a sembrarlo?",
                   "contenido": [
                     {
@@ -67,8 +72,8 @@ class MyApp extends StatelessWidget {
                   "actividad_id": "act211",
                   "fecha_de_creacion": "la fecha",
                   "actividad_diaria": true,
-                  "titulo": "Solear",
-                  "icon_name": "dom.svg",
+                  "titulo": "Recolectar",
+                  "icon_name": "huevos.svg",
                   "subtitulo": "Mantener la planta soleada",
                   "contenido": [
                     {
@@ -103,7 +108,7 @@ class MyApp extends StatelessWidget {
             {
               "planta_id": "idfresa",
               "nombre": "fresa",
-              "activo": true,
+              "activo": false,
               "descripcion": "alguna descripcion",
               "actividades": [
                 {

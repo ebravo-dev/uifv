@@ -20,8 +20,9 @@ class LogActivityPageState extends State<LogActivityPage> {
   String dropValue = 'Todos';
   int currentPage = 0;
   ScrollController controller;
-  List<Widget> listBody = [];
   var db = UserActivitiesProvider();
+  bool flagScroll = true;
+  List<Widget> listBody = [];
 
   @override
   void initState() {
@@ -30,13 +31,12 @@ class LogActivityPageState extends State<LogActivityPage> {
   }
 
   void _scrollListener() {
-    print(controller.position.extentAfter);
-    if (controller.offset >= controller.position.maxScrollExtent / 2 &&
-        !controller.position.outOfRange) {
-      if (mounted)
+    if (controller.position.extentAfter == 0) {
+      if (mounted && flagScroll)
         setState(() {
           currentPage++;
-          print('-->>>>>' + currentPage.toString());
+          print(';¨>>>>' + currentPage.toString());
+          flagScroll = false;
         });
     }
   }
@@ -60,6 +60,7 @@ class LogActivityPageState extends State<LogActivityPage> {
   }
 
   Future<List<Widget>> getActivities() async {
+    await Future.delayed(Duration(milliseconds: 1500));
     var actividades = await getActivitiesFromDb();
 
     listBody.addAll(actividades
@@ -74,6 +75,7 @@ class LogActivityPageState extends State<LogActivityPage> {
         .toList());
 
     print('********> ' + listBody.length.toString());
+    flagScroll = true;
     return listBody;
   }
 
@@ -93,9 +95,15 @@ class LogActivityPageState extends State<LogActivityPage> {
               },
             );
           } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            var items = [];
+            items.add(Text('hola'));
+            return listBody.length == 0
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : ListView(
+                    children: items,
+                  );
           }
         },
       ),

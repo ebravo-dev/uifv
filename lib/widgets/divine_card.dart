@@ -87,12 +87,14 @@ class DivineCard extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          title,
-                          style: TextStyle(
-                              color: fontColor,
-                              fontSize: fontSize,
-                              fontWeight: FontWeight.w600),
+                        Expanded(
+                          child: Text(
+                            title,
+                            style: TextStyle(
+                                color: fontColor,
+                                fontSize: fontSize,
+                                fontWeight: FontWeight.w600),
+                          ),
                         ),
                         activado
                             ? Container(

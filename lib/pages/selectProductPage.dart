@@ -9,9 +9,11 @@ import 'package:ui2/values/productsOfWeek.dart' as WEEKLYPRODUCTS;
 import 'package:ui2/widgets/navigation_button.dart';
 import 'package:ui2/widgets/product_week_card.dart';
 import 'package:ui2/widgets/products_divider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class SelectProductPage extends StatefulWidget {
-  SelectProductPage({Key key, this.title}) : super(key: key);
+  final Map<String, dynamic> allProducts;
+  SelectProductPage({Key key, this.title, this.allProducts}) : super(key: key);
 
   final String title;
 
@@ -21,6 +23,34 @@ class SelectProductPage extends StatefulWidget {
 
 class _SelectProductPageState extends State<SelectProductPage> {
   MultipleTabsFix tabsFix = MultipleTabsFix();
+
+  List<Widget> listBody() {
+    List<Widget> listBody = [];
+    List<Map<String, dynamic>> allProducts = widget.allProducts['plantas'];
+    List<Widget> productoActivos = [];
+    List<Widget> productoNoActivos = [];
+    for (int i = 0; i < allProducts.length; i++) {
+      var producto = allProducts[i];
+      String nombreProducto = producto['nombre'];
+      String idProducto = producto['planta_id'];
+      String descripcion = producto['descripcion'];
+      String urlImage = producto['foto_url'];
+      ProductWeekCard(
+        productName: nombreProducto,
+        image: CachedNetworkImage(
+          imageUrl: urlImage,
+          progressIndicatorBuilder: (context, url, downloadProgress) =>
+              CircularProgressIndicator(value: downloadProgress.progress),
+          errorWidget: (context, url, dynamic error) => const Icon(Icons.error),
+        ),
+        productDescription: jsonDecode(WEEKLYPRODUCTS.sunFlower['description']),
+        isActive: WEEKLYPRODUCTS.sunFlower['isActive'],
+        multipleTabsFix: tabsFix,
+      );
+      if (producto['activo'] == true) {}
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
