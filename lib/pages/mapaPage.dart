@@ -1,59 +1,57 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gps/gps.dart';
+import 'package:ui2/widgets/product_item_maps.dart';
 
-class MapaPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return MapaPageState();
-  }
-}
+// class MapaPage extends StatefulWidget {
+//   @override
+//   State<StatefulWidget> createState() {
+//     return MapaPageState();
+//   }
+// }
 
-class MapaPageState extends State<MapaPage> {
-  List<String> lugares = [
-    'AGUASCALIENTES',
-    'BAJA CALIFORNIA',
-    'BAJA CALIFORNIA SUR',
-    'CAMPECHE',
-    'COAHUILA',
-    'COLIMA',
-    'CHIAPAS',
-    'CHIHUAHUA',
-    'CIUDAD DE MEXICO',
-    'DURANGO',
-    'GUANAJUATO',
-    'GUERRERO',
-    'HIDALGO',
-    'JALISCO',
-    'ESTADO DE MEXICO',
-    'MICHOACAN',
-    'MORELOS',
-    'NAYARIT',
-    'NUEVO LEON',
-    'OAXACA',
-    'PUEBLA',
-    'QUERETARO',
-    'QUINTANA ROO',
-    'SAN LUIS POTOSI',
-    'SINALOA',
-    'SONORA',
-    'TABASCO',
-    'TAMAULIPAS',
-    'TLAXCALA',
-    'VERACRUZ',
-    'YUCATAN',
-    'ZACATECAS'
-  ];
-
-  Future<String> algo(String lugar) async {
-    await Future.delayed(Duration(milliseconds: 500));
-    var addresses = await Geocoder.local.findAddressesFromQuery(lugar);
-    var first = addresses.first;
-    return ("${first.coordinates} : ${first.adminArea}");
-  }
+class MapaPage extends StatelessWidget {
+  // final List<String> lugares = [
+  //   'AGUASCALIENTES',
+  //   'BAJA CALIFORNIA',
+  //   'BAJA CALIFORNIA SUR',
+  //   'CAMPECHE',
+  //   'COAHUILA',
+  //   'COLIMA',
+  //   'CHIAPAS',
+  //   'CHIHUAHUA',
+  //   'CIUDAD DE MEXICO',
+  //   'DURANGO',
+  //   'GUANAJUATO',
+  //   'GUERRERO',
+  //   'HIDALGO',
+  //   'JALISCO',
+  //   'ESTADO DE MEXICO',
+  //   'MICHOACAN',
+  //   'MORELOS',
+  //   'NAYARIT',
+  //   'NUEVO LEON',
+  //   'OAXACA',
+  //   'PUEBLA',
+  //   'QUERETARO',
+  //   'QUINTANA ROO',
+  //   'SAN LUIS POTOSI',
+  //   'SINALOA',
+  //   'SONORA',
+  //   'TABASCO',
+  //   'TAMAULIPAS',
+  //   'TLAXCALA',
+  //   'VERACRUZ',
+  //   'YUCATAN',
+  //   'ZACATECAS'
+  // ];
 
   Future<String> porcord(double lat, double long) async {
     // var latlng = await Gps.currentGps();
@@ -62,26 +60,20 @@ class MapaPageState extends State<MapaPage> {
     var addresses =
         await Geocoder.local.findAddressesFromCoordinates(coordinates);
     var first = addresses.first;
-    return ("${first.coordinates} : ${first.adminArea}");
+    return first.adminArea;
   }
-
-  int prueba = 0;
 
   Future<CameraPosition> getCurrentPosition() async {
     var latlng = await Gps.currentGps();
-    prueba = 2;
+    String estado =
+        await porcord(double.parse(latlng.lat), double.parse(latlng.lng));
     return CameraPosition(
       target: LatLng(
         double.parse(latlng.lat),
         double.parse(latlng.lng),
       ),
-      zoom: 18,
+      zoom: 16,
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -92,8 +84,14 @@ class MapaPageState extends State<MapaPage> {
       builder: (BuildContext c, AsyncSnapshot<CameraPosition> asyncSnapshot) {
         if (asyncSnapshot.hasData) {
           return Scaffold(
+            // appBar: AppBar(
+            //   backgroundColor: Colors.transparent,
+            //   elevation: 0.0,
+            //   brightness: Brightness.light,
+            // ),
+            extendBodyBehindAppBar: true,
             body: GoogleMap(
-              mapType: MapType.hybrid,
+              mapType: MapType.normal,
               initialCameraPosition: asyncSnapshot.data,
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
@@ -104,32 +102,114 @@ class MapaPageState extends State<MapaPage> {
                     position: asyncSnapshot.data.target),
               },
             ),
-            floatingActionButton: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  prueba,
-                  (index) => Container(
-                    margin: EdgeInsets.only(
-                      bottom: 20,
-                      left: 20,
-                    ),
-                    width: 100,
-                    height: 100,
-                    color: Colors.red,
-                  ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.miniEndTop,
+            floatingActionButton: FloatingActionButton(
+              // elevation: 0,
+              mini: true,
+              backgroundColor: Colors.white,
+              child: Text(
+                'i',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'montserrat',
+                    color: Colors.black),
+              ),
+              onPressed: () {
+                showCupertinoDialog(
+                    context: context,
+                    builder: (c) {
+                      return AlertDialog(
+                        title: Text('Acerca del GPS'),
+                        content: Text(
+                            'Se muestran los productos asociados a tu ubicación, se basa del estudio de la actividad de los productos con la entidad federativa.'),
+                      );
+                    });
+              },
+            ),
+            bottomSheet: Container(
+              padding: EdgeInsets.only(top: 20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Colors.black38,
+                      offset: Offset(0.0, 10.0),
+                      blurRadius: 12)
+                ],
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
                 ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                  ),
+                  Text(
+                    'Productos según tu ubicación',
+                    style: TextStyle(
+                      // fontFamily: 'montserrat',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    physics: BouncingScrollPhysics(),
+                    padding: EdgeInsets.only(
+                        // left: 15,
+                        ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: List.generate(
+                        3,
+                        (index) => ProductItemMap(
+                          imageUrl:
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdSI_I190gm5-zzj6MEF_6e0HWJ4CZZvs6Tg&usqp=CAU',
+                          onTap: () {},
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              brightness: Brightness.light,
+              backgroundColor: Colors.white,
+              elevation: 0,
+            ),
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
       },
     );
   }
+}
+
+class EmptyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black,
+    );
+  }
+
+  @override
+  Size get preferredSize => Size(0.0, 0.0);
 }

@@ -19,8 +19,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'FV',
       themeMode: ThemeMode.light,
-      theme: ThemeData.light(),
-      home: TestPage(),
+      theme: ThemeData.light().copyWith(
+        bottomSheetTheme: BottomSheetThemeData(
+          backgroundColor: Colors.black.withOpacity(0),
+        ),
+      ),
+      home: MapaPage(),
+      // home: TestPage(),
       // home: SelectProductPage(),
       // home: SelectProductPage(
       //   // idActivatesProducts: ['idgirasol', 'idfresa'],
