@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:ui2/values/productsOfWeek.dart' as WEEKLYPRODUCTS;
 import 'package:ui2/widgets/navigation_button.dart';
 import 'package:ui2/widgets/product_week_card.dart';

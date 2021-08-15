@@ -75,7 +75,7 @@ final tomatoes = {
     child: Image(
       width: 130,
       height: 150,
-      image: Svg('assets/img/tomato.svg'),
+      image: Svg('assets/img/tomate.svg'),
     ),
   ),
   "color": Colors.indigo.shade300,
